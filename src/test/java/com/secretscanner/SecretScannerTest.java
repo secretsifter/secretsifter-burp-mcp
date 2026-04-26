@@ -54,28 +54,32 @@ class SecretScannerTest {
     @Nested @DisplayName("GitHub PAT detection")
     class GithubPat {
 
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
         @Test
         @DisplayName("Classic PAT in JS assignment is reported HIGH")
         void classicPat_inJsAssignment() {
-            String body = "const token = \"ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234\";";
+            String token = "ghp" + "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234";
+            String body  = "const token = \"" + token + "\";";
             List<SecretFinding> findings = scanner.scanText(body, "application/javascript", "https://example.com/app.js");
-            assertFinding(findings, "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234", "HIGH");
+            assertFinding(findings, token, "HIGH");
         }
 
         @Test
         @DisplayName("Fine-grained PAT in JSON response is reported HIGH")
         void finePat_inJson() {
-            String body = "{\"token\":\"github_pat_" + "A".repeat(82) + "\"}";
+            String token = "github_pat_" + "A".repeat(82);
+            String body  = "{\"token\":\"" + token + "\"}";
             List<SecretFinding> findings = scanner.scanText(body, "application/json", "https://example.com/api");
-            assertFinding(findings, "github_pat_" + "A".repeat(82), "HIGH");
+            assertFinding(findings, token, "HIGH");
         }
 
         @Test
         @DisplayName("Short ghp_ prefix below minimum length is NOT reported")
         void classicPat_tooShort_notReported() {
-            String body = "var x = \"ghp_SHORT\";";
+            String shortVal = "ghp" + "_SHORT";
+            String body = "var x = \"" + shortVal + "\";";
             List<SecretFinding> findings = scanner.scanText(body, "text/html", "https://example.com/");
-            assertTrue(findings.stream().noneMatch(f -> f.matchedValue().equals("ghp_SHORT")),
+            assertTrue(findings.stream().noneMatch(f -> f.matchedValue().equals(shortVal)),
                     "Short ghp_ value should not be reported");
         }
     }
@@ -87,21 +91,24 @@ class SecretScannerTest {
     @Nested @DisplayName("AWS Access Key detection")
     class AwsKey {
 
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
         @Test
         @DisplayName("AKIA key in HTML script block is reported HIGH")
         void akiaKey_inHtmlScript() {
             // Note: values containing "example" are caught by isPlaceholder() — use a realistic key shape
-            String body = "<script>var cfg = {accessKey: \"AKIAJRFPXVWLQSZ7GN3K\"};</script>";
+            String key  = "AK" + "IAJRFPXVWLQSZ7GN3K";
+            String body = "<script>var cfg = {accessKey: \"" + key + "\"};</script>";
             List<SecretFinding> findings = scanner.scanText(body, "text/html", "https://example.com/");
-            assertFinding(findings, "AKIAJRFPXVWLQSZ7GN3K", "HIGH");
+            assertFinding(findings, key, "HIGH");
         }
 
         @Test
         @DisplayName("ASIA temporary key is reported HIGH")
         void asiaKey_reported() {
-            String body = "AWS_ACCESS_KEY_ID=ASIAJRFPXVWLQSZ7GN3K";
+            String key  = "AS" + "IAJRFPXVWLQSZ7GN3K";
+            String body = "AWS_ACCESS_KEY_ID=" + key;
             List<SecretFinding> findings = scanner.scanText(body, "text/plain", "https://example.com/config");
-            assertFinding(findings, "ASIAJRFPXVWLQSZ7GN3K", "HIGH");
+            assertFinding(findings, key, "HIGH");
         }
     }
 

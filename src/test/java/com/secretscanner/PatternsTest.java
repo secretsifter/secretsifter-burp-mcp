@@ -40,12 +40,12 @@ class PatternsTest {
 
     @Nested @DisplayName("GitHub tokens")
     class GitHub {
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
+        @Test void ghp_classic_match()   { assertMatches(Patterns.GITHUB_PAT_CLASSIC, "ghp" + "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
+        @Test void ghp_classic_noMatch() { assertNoMatch(Patterns.GITHUB_PAT_CLASSIC, "ghp" + "_SHORT"); }
 
-        @Test void ghp_classic_match()   { assertMatches(Patterns.GITHUB_PAT_CLASSIC, "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
-        @Test void ghp_classic_noMatch() { assertNoMatch(Patterns.GITHUB_PAT_CLASSIC, "ghp_SHORT"); }
-
-        @Test void gho_oauth_match()     { assertMatches(Patterns.GITHUB_OAUTH,       "gho_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
-        @Test void ghs_actions_match()   { assertMatches(Patterns.GITHUB_ACTIONS,     "ghs_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
+        @Test void gho_oauth_match()     { assertMatches(Patterns.GITHUB_OAUTH,       "gho" + "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
+        @Test void ghs_actions_match()   { assertMatches(Patterns.GITHUB_ACTIONS,     "ghs" + "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef1234"); }
         @Test void ghr_refresh_match()   { assertMatches(Patterns.GITHUB_REFRESH,     "ghr_" + "A".repeat(76)); }
 
         @Test void fine_pat_match()      { assertMatches(Patterns.GITHUB_FINE_PAT,    "github_pat_" + "A".repeat(82)); }
@@ -58,9 +58,10 @@ class PatternsTest {
 
     @Nested @DisplayName("GitLab tokens")
     class GitLab {
-        @Test void pat_match()    { assertMatches(Patterns.GITLAB_PAT,    "glpat-ABCDEFGHIJabcdefghij"); }
-        @Test void pat_noMatch()  { assertNoMatch(Patterns.GITLAB_PAT,    "glpat-SHORT"); }
-        @Test void deploy_match() { assertMatches(Patterns.GITLAB_DEPLOY, "gldt-ABCDEFGHIJabcdefghij"); }
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
+        @Test void pat_match()    { assertMatches(Patterns.GITLAB_PAT,    "glpat" + "-ABCDEFGHIJabcdefghij"); }
+        @Test void pat_noMatch()  { assertNoMatch(Patterns.GITLAB_PAT,    "glpat" + "-SHORT"); }
+        @Test void deploy_match() { assertMatches(Patterns.GITLAB_DEPLOY, "gldt" + "-ABCDEFGHIJabcdefghij"); }
     }
 
     // =========================================================================
@@ -107,10 +108,11 @@ class PatternsTest {
 
     @Nested @DisplayName("AWS keys")
     class Aws {
-        @Test void access_key_akia()  { assertMatches(Patterns.AWS_ACCESS_KEY, "AKIAIOSFODNN7EXAMPLE"); }
-        @Test void access_key_asia()  { assertMatches(Patterns.AWS_ACCESS_KEY, "ASIAIOSFODNN7EXAMPLE"); }
-        @Test void access_key_bad()   { assertNoMatch(Patterns.AWS_ACCESS_KEY, "BKIAIOSFODNN7EXAMPLE"); }
-        @Test void access_key_short() { assertNoMatch(Patterns.AWS_ACCESS_KEY, "AKIA1234"); }
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
+        @Test void access_key_akia()  { assertMatches(Patterns.AWS_ACCESS_KEY, "AK" + "IAIOSFODNN7EXAMPLE"); }
+        @Test void access_key_asia()  { assertMatches(Patterns.AWS_ACCESS_KEY, "AS" + "IAIOSFODNN7EXAMPLE"); }
+        @Test void access_key_bad()   { assertNoMatch(Patterns.AWS_ACCESS_KEY, "BK" + "IAIOSFODNN7EXAMPLE"); }
+        @Test void access_key_short() { assertNoMatch(Patterns.AWS_ACCESS_KEY, "AK" + "IA1234"); }
     }
 
     // =========================================================================
@@ -119,9 +121,10 @@ class PatternsTest {
 
     @Nested @DisplayName("Google keys")
     class Google {
-        @Test void api_key_match()     { assertMatches(Patterns.GOOGLE_KEY,           "AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI"); }
-        @Test void api_key_noMatch()   { assertNoMatch(Patterns.GOOGLE_KEY,           "AIzaSHORT"); }
-        @Test void oauth_client_match(){ assertMatches(Patterns.GOOGLE_OAUTH_CLIENT_ID,"123456789012-abcdefghijklmnopqrstuvwxyz012345.apps.googleusercontent.com"); }
+        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
+        @Test void api_key_match()     { assertMatches(Patterns.GOOGLE_KEY,           "AI" + "zaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI"); }
+        @Test void api_key_noMatch()   { assertNoMatch(Patterns.GOOGLE_KEY,           "AI" + "zaSHORT"); }
+        @Test void oauth_client_match(){ assertMatches(Patterns.GOOGLE_OAUTH_CLIENT_ID,"123456789012-" + "abcdefghijklmnopqrstuvwxyz012345.apps.googleusercontent.com"); }
     }
 
     // =========================================================================
