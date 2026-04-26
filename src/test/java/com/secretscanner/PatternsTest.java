@@ -121,8 +121,8 @@ class PatternsTest {
 
     @Nested @DisplayName("Google keys")
     class Google {
-        // Test fixtures use string concatenation so source-text doesn't trip GitHub's secret-scanning.
-        @Test void api_key_match()     { assertMatches(Patterns.GOOGLE_KEY,           "AI" + "zaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI"); }
+        // Test fixtures are obviously synthetic so they can't be misread as real keys.
+        @Test void api_key_match()     { assertMatches(Patterns.GOOGLE_KEY,           "AIza" + "A".repeat(35)); }
         @Test void api_key_noMatch()   { assertNoMatch(Patterns.GOOGLE_KEY,           "AI" + "zaSHORT"); }
         @Test void oauth_client_match(){ assertMatches(Patterns.GOOGLE_OAUTH_CLIENT_ID,"123456789012-" + "abcdefghijklmnopqrstuvwxyz012345.apps.googleusercontent.com"); }
     }
