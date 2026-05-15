@@ -11,7 +11,7 @@
 #   Settings → Custom Rules → Import from file → select this file → Save Settings
 #
 # NOTE: These rules do NOT duplicate SecretSifter's built-in rules.
-#       Built-ins already cover: GitHub, GitLab, AWS, Stripe, Slack, OpenAI, Anthropic,
+#       Built-ins already cover: GitHub, GitLab, AWS, Stripe, Slack, OpenAI,
 #       Shopify, HubSpot, Mailchimp, Databricks, Google API, Mapbox, SendGrid,
 #       Twilio Account SID, Vault, Discord, Telegram, New Relic, Dynatrace, and more.
 
