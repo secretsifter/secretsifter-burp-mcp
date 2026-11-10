@@ -48,9 +48,11 @@ as the BApp Store edition.
 
 | Feature | Detail |
 |---|---|
-| **Passive scanning** | Fires on every proxied response automatically; also sweeps existing sitemap on load |
-| **100+ anchored token rules** | GitHub, GitLab, AWS, Stripe, OpenAI, Slack, Shopify, Azure, GCP, Docker Hub, Clerk, and more |
-| **40+ context-gated rules** | Algolia, Cloudflare, Zendesk, Heroku, Datadog, Salesforce, Mistral, Cohere, Auth0, Supabase, and more |
+| **Passive scanning** | Fires on every proxied response automatically (live proxy detection, works in Community too), plus a registered passive scan check in Pro |
+| **150+ anchored token rules** | GitHub, GitLab, AWS, Stripe, OpenAI, Anthropic, Slack, Shopify, Azure, GCP, Docker Hub, Clerk, and more — driven by versioned YAML rule packs |
+| **270+ context-gated rules** | Algolia, Cloudflare, Zendesk, Heroku, Datadog, Salesforce, Mistral, Cohere, Auth0, Supabase, plus the community Kingfisher-derived set |
+| **WebSocket scanning** | Scans WebSocket text frames for secrets (dedicated handler — Burp has no passive scan check for WebSocket messages) |
+| **Live key validation (opt-in)** | Off by default; when enabled, detected keys can be checked for liveness against provider endpoints (full edition only) |
 | **Request header scanning** | Detects credentials in custom headers (e.g. `App_key`, `Resource`, `Ocp-Apim-Subscription-Key`) |
 | **Generic KV & high-entropy scanner** | Catches unlisted keys using keyword + entropy heuristics |
 | **PII detection** | SSN, credit card numbers (Luhn-validated), credential-bearing URLs |
@@ -58,7 +60,8 @@ as the BApp Store edition.
 | **HAR import** | Scan responses from a `.har` file directly — no live fetch needed (useful for auth-walled or offline targets) |
 | **Headless Browse** | Optionally launch Chrome/Chromium headless through Burp proxy to capture dynamic XHR/Fetch calls |
 | **Scope Monitor** | Capture passive proxy findings for watched hosts and route them into the Bulk Scan results table |
-| **HTML reports** | Per-scan all-in-one HTML report (HTML + findings CSV + target-status CSV); per-domain ZIP (one file per hostname + same two CSVs) |
+| **Reports: HTML / CSV / JSON / SARIF** | Per-scan all-in-one HTML report (HTML + findings CSV + target-status CSV), JSON and SARIF 2.1.0 export, per-domain ZIP (one file per hostname + same two CSVs) |
+| **Stable issue IDs** | Findings carry permanent IDs (e.g. `SS-102426-7K4M2Q`) that survive rescans and Burp restarts, with grouping/fingerprinting |
 | **Scan tiers** | FAST / LIGHT / FULL — trade speed vs. coverage |
 | **Key name blocklist / allowlist** | Suppress FP-prone key patterns or force-report specific key names regardless of entropy |
 | **AI Triage (multi-provider)** | Right-click any finding or click *AI Triage All* — choose **Burp AI (Pro)**, **Anthropic API**, **OpenAI / Compatible**, or **Claude via MCP** in Settings. AI assesses real vs. noise; deterministic severity overrides applied post-confirmation; noise-flagged rows surface in a review dialog |
@@ -209,8 +212,8 @@ Expands to all site-map entries for the selected host(s). Optionally save an HTM
 
 | Tier | Rules Active | Use When |
 |---|---|---|
-| **FAST** | 100+ anchored vendor tokens | Quick recon, large site maps |
-| **LIGHT** | + High-entropy scanner + 40+ context-gated rules + DB strings | Standard pentest |
+| **FAST** | 150+ anchored vendor tokens | Quick recon, large site maps |
+| **LIGHT** | + High-entropy scanner + 270+ context-gated rules + DB strings | Standard pentest |
 | **FULL** | + PII (SSN, CC) + Generic KV + SSR state blobs + JSON walker + getter functions | Deep audit, bug bounty |
 
 ---

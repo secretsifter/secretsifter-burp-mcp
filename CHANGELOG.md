@@ -2,6 +2,31 @@
 
 All notable changes to SecretSifter Burp MCP are documented here.
 
+## [1.1.0] — 2026-11-08
+
+Unifies the full edition onto the same detection engine as the BApp Store edition v1.1.0, and adds opt-in live key validation. All MCP / AI Triage / live-proxy-detection features of this edition are retained.
+
+### Added
+
+- **YAML rule engine** — the detection core is now driven by versioned YAML rule packs: **150+ anchored** vendor token rules and **270+ context-gated** rules (incl. the community Kingfisher-derived set), replacing the previous hard-coded rule tables.
+- **WebSocket scanning** — text frames are scanned for secrets (no passive scan check exists for WebSocket messages in Burp, so this runs via a dedicated handler).
+- **SARIF + JSON export** — Bulk Scan and report export now emit SARIF 2.1.0 and JSON in addition to CSV and HTML.
+- **Stable issue IDs** — findings carry permanent IDs (e.g. `SS-102426-7K4M2Q`) that survive rescans and Burp restarts, with grouping/fingerprinting.
+- **Opt-in live key validation** — off by default; when enabled, detected keys can be checked for liveness against provider endpoints. (This edition only; the BApp Store edition never performs live verification.)
+
+### Changed
+
+- Background failures (site-map add, WebSocket scan, response-tab scan, proxy handler) are logged to the Extensions error log instead of being silently swallowed.
+- Full edition retains always-on live proxy detection (works in Burp Community too) in addition to the registered passive scan check.
+
+## [1.0.2] — 2026-05-15
+
+- False-positive reduction and INFORMATION-tier detection tuning.
+
+## [1.0.1] — 2026-05-13
+
+- Scanner improvements and a UI fix.
+
 ## [1.0.0] — 2026-04-26
 
 ### Initial public release
