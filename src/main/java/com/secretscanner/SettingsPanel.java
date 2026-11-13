@@ -236,7 +236,7 @@ public class SettingsPanel implements burp.api.montoya.ui.settings.SettingsPanel
                 "Findings whose matched key name contains any entry here are always reported, " +
                 "even if the value fails entropy checks. " +
                 "Example: add APIM_KEY to ensure all APIM key names are captured.");
-        keyAllowPanel.add(Branding.watermarkInBox(new JScrollPane(keyAllowlistArea)), BorderLayout.CENTER);   // watermark inside the box
+        keyAllowPanel.add(Branding.watermarkInBox(new JScrollPane(keyAllowlistArea)), BorderLayout.CENTER);   // OWASP mark inside the box
         keyAllowPanel.add(makeSearchBar(keyAllowlistArea), BorderLayout.SOUTH);
 
         JPanel filterRow = new JPanel(new GridLayout(1, 3, 8, 0));

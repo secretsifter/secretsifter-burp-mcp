@@ -2843,7 +2843,7 @@ public class SecretScanner {
             try {
                 pat = java.util.regex.Pattern.compile(regex);
             } catch (Exception ex) {
-                if (logging != null) logging.logToError("[SecretSifter] Custom rule '" + ruleName +
+                if (logging != null) logging.logToError("[OWASP SecretSifter] Custom rule '" + ruleName +
                         "' has invalid regex — skipping: " + ex.getMessage());
                 continue;
             }

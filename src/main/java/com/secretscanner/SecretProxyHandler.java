@@ -78,7 +78,7 @@ public class SecretProxyHandler implements ProxyResponseHandler {
     private void logSkip(String why, String url) {
         long n = skipped.incrementAndGet();
         if (api != null && (n == 1 || n % 100 == 0))
-            api.logging().logToError("[SecretSifter] proxy scan skipped (" + why + ") for "
+            api.logging().logToError("[OWASP SecretSifter] proxy scan skipped (" + why + ") for "
                     + url.replaceFirst("[?#].*", "") + "; " + n + " skipped so far");
     }
 
@@ -156,7 +156,7 @@ public class SecretProxyHandler implements ProxyResponseHandler {
                             if (SitemapDeduplicator.shouldAddProxy(group))
                                 api.siteMap().add(SecretFinding.toGroupedAuditIssue(group, rr));
                         } catch (Exception ex) {
-                            api.logging().logToError("[SecretSifter] siteMap.add failed for group: " + ex);
+                            api.logging().logToError("[OWASP SecretSifter] siteMap.add failed for group: " + ex);
                         }
                     }
 
@@ -174,7 +174,7 @@ public class SecretProxyHandler implements ProxyResponseHandler {
                 }
             } catch (Exception e) {
                 if (api != null)
-                    api.logging().logToError("[SecretSifter] ProxyHandler ERROR: " + e.toString());
+                    api.logging().logToError("[OWASP SecretSifter] ProxyHandler ERROR: " + e.toString());
             } finally {
                 queuedChars.addAndGet(-bodyChars);
             }

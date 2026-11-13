@@ -101,7 +101,7 @@ public class SecretWebSocketHandler implements ProxyWebSocketCreationHandler {
                 try {
                     scan(payload, wsUrl, direction);
                 } catch (Exception e) {
-                    if (api != null) api.logging().logToError("[SecretSifter] WebSocket scan error: " + e);
+                    if (api != null) api.logging().logToError("[OWASP SecretSifter] WebSocket scan error: " + e);
                 } finally {
                     queuedChars.addAndGet(-n);
                 }
@@ -126,7 +126,7 @@ public class SecretWebSocketHandler implements ProxyWebSocketCreationHandler {
                 if (SitemapDeduplicator.shouldAddProxy(group))
                     api.siteMap().add(SecretFinding.toGroupedAuditIssue(group, null, httpUrl));
             } catch (Exception ex) {
-                api.logging().logToError("[SecretSifter] siteMap.add failed for WebSocket finding: " + ex);
+                api.logging().logToError("[OWASP SecretSifter] siteMap.add failed for WebSocket finding: " + ex);
             }
         }
         if (ScopeMonitor.isActive() && ScopeMonitor.isWatched(httpUrl)) {

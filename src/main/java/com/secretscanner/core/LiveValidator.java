@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 /**
- * Opt-in liveness check for a detected secret, for a DEFENSIVE scanner (SecretSifter) used by
+ * Opt-in liveness check for a detected secret, for a DEFENSIVE scanner (OWASP SecretSifter) used by
  * a team on applications it owns. It performs one read-only request to the provider's documented
  * identity/verify endpoint and maps the HTTP status to a {@link FindingMeta.Validation} state. It is
  * never invoked automatically: the operator turns live validation on (off by default) and selects
@@ -51,7 +51,7 @@ public final class LiveValidator {
             String finalUrl = url;
             HttpRequest.Builder rb = HttpRequest.newBuilder()
                     .timeout(Duration.ofSeconds(Math.max(1, timeoutSeconds)))
-                    .header("User-Agent", "SecretSifter-validator");
+                    .header("User-Agent", "OWASP-SecretSifter-validator");
 
             switch (auth) {
                 case BEARER -> rb.header("Authorization", "Bearer " + credential);

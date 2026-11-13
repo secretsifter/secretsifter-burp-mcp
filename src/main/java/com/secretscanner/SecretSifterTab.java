@@ -292,7 +292,7 @@ public class SecretSifterTab implements HttpResponseEditorProvider {
                 } catch (Exception ex) {
                     findings = List.of();
                     if (scanner.logging() != null)
-                        scanner.logging().logToError("[SecretSifter] response-tab scan failed for "
+                        scanner.logging().logToError("[OWASP SecretSifter] response-tab scan failed for "
                                 + url + ": " + ex);
                 }
                 final List<SecretFinding> result = findings;

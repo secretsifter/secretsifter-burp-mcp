@@ -656,12 +656,12 @@ public class BulkScanPanel {
         JPanel centrePanel = new JPanel(new BorderLayout(4, 4));
         centrePanel.setBorder(BorderFactory.createTitledBorder(""));
         centrePanel.add(findingsHeader, BorderLayout.NORTH);
-        centrePanel.add(Branding.watermarkInBox(tableScroll), BorderLayout.CENTER);   // watermark inside the findings box
+        centrePanel.add(Branding.watermarkInBox(tableScroll), BorderLayout.CENTER);   // OWASP mark inside the findings box
 
         // ── Bottom: progress + export ──────────────────────────────────────
         JPanel bottomPanel = new JPanel(new BorderLayout(6, 4));
 
-        // Always labelled SecretSifter; the scan status, when there is one, follows it
+        // Always labelled OWASP SecretSifter; the scan status, when there is one, follows it
         progressBar = new JProgressBar(0, 100) {
             @Override public String getString() {
                 String status = super.getString();
@@ -3484,7 +3484,7 @@ public class BulkScanPanel {
             for (java.util.List<SecretFinding> group : grouped.values()) {
                 if (!SitemapDeduplicator.shouldAdd(group)) continue;
                 try { api.siteMap().add(SecretFinding.toGroupedAuditIssue(group, rrForIssue, issueUrl)); }
-                catch (Exception e) { logErr("[SecretSifter] siteMap.add failed for " + url + ": " + e); }
+                catch (Exception e) { logErr("[OWASP SecretSifter] siteMap.add failed for " + url + ": " + e); }
             }
         }
         // Target attribution priority:
@@ -3758,7 +3758,7 @@ public class BulkScanPanel {
                     .build();
         } catch (Exception e) {
             if (api != null)
-                logErr("[SecretSifter] WARN: trust-all HTTP client could not be built, "
+                logErr("[OWASP SecretSifter] WARN: trust-all HTTP client could not be built, "
                         + "using strict certificate validation. Cause: " + e);
             return java.net.http.HttpClient.newBuilder()
                     .proxy(proxy)

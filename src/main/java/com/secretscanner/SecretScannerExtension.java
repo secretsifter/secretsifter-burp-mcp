@@ -64,7 +64,7 @@ public class SecretScannerExtension implements BurpExtension {
         try {
             api.proxy().registerWebSocketCreationHandler(wsHandler);
         } catch (RuntimeException e) {
-            api.logging().logToError("[SecretSifter] WebSocket scanning unavailable: " + e);
+            api.logging().logToError("[OWASP SecretSifter] WebSocket scanning unavailable: " + e);
         }
 
         // 4. Context menu — right-click "Rescan for Secrets" in Proxy History / Repeater

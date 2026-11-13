@@ -199,10 +199,10 @@ public record SecretFinding(
 
         // Passing null to the varargs HttpRequestResponse... makes Burp throw; omit it instead.
         if (markedRr == null)
-            return AuditIssue.auditIssue("[SecretSifter] Secrets / Credentials", detail, background,
+            return AuditIssue.auditIssue("[OWASP SecretSifter] Secrets / Credentials", detail, background,
                     issueBaseUrl, sev, conf, remediationDetail, null, sev);
         return AuditIssue.auditIssue(
-                "[SecretSifter] Secrets / Credentials",
+                "[OWASP SecretSifter] Secrets / Credentials",
                 detail,
                 background,
                 issueBaseUrl,
@@ -336,7 +336,7 @@ public record SecretFinding(
         // Omit the argument entirely when there is no associated request/response.
         if (markedRr != null) {
             return AuditIssue.auditIssue(
-                    "[SecretSifter] Secrets / Credentials",
+                    "[OWASP SecretSifter] Secrets / Credentials",
                     detail.toString(),
                     background,
                     issueBaseUrl,
@@ -349,7 +349,7 @@ public record SecretFinding(
             );
         }
         return AuditIssue.auditIssue(
-                "[SecretSifter] Secrets / Credentials",
+                "[OWASP SecretSifter] Secrets / Credentials",
                 detail.toString(),
                 background,
                 issueBaseUrl,

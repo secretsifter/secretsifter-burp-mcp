@@ -21,7 +21,7 @@ final class SarifWriter {
         JsonObject driver = new JsonObject();
         driver.addProperty("name", "SecretSifter");          // stable: code-scanning tools match alerts on it
         driver.addProperty("fullName", Branding.NAME);
-        driver.addProperty("organization", "SecretSifter");
+        driver.addProperty("organization", "OWASP Foundation");
         driver.addProperty("informationUri", Branding.PROJECT_URL);
         if (toolVersion != null) driver.addProperty("version", toolVersion);
 

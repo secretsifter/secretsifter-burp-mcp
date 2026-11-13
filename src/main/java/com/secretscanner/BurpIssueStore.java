@@ -28,7 +28,7 @@ final class BurpIssueStore implements IssueRegistry.Store {
         try {
             IssueRegistry.install(new IssueRegistry(new BurpIssueStore(api)));
         } catch (RuntimeException e) {
-            api.logging().logToError("[SecretSifter] issue IDs not persisted this session: " + e);
+            api.logging().logToError("[OWASP SecretSifter] issue IDs not persisted this session: " + e);
             IssueRegistry.install(IssueRegistry.inMemory());
         }
     }
